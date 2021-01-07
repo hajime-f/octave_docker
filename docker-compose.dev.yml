@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+  python:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    command: uwsgi --socket :8001 --module octave.wsgi --py-autoreload 1 --logto /tmp/uwsgi.log
+    restart: unless-stopped
+    container_name: Django
+    networks:
+      - django_net
+    volumes:
+      - ./src:/code
+      - ./static:/static
+    expose:
+      - "8001"
+    depends_on:
+      - db
+
+  vue:
+    build:
+      context: ./vue
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: Vue
+    networks:
+      - django_net
+    volumes:
+      - ./src/frontend:/code
+      - ./static:/static
+      - ./template:/template
+    expose:
+      - "3000"
+    depends_on:
+      - python
+  
+  db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: MySQL
+    networks:
+      - django_net
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${OCTAVE_DB_PASSWORD:-default}
+      TZ: "Asia/Tokyo"
+    volumes:
+      - octave.db.volume:/var/lib/mysql
+      - ./mysql/init.d:/docker-entrypont-initdb.d
+
+  nginx:
+    image: nginx:1.17
+    restart: unless-stopped
+    container_name: nginx
+    networks:
+      - django_net
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./static:/static
+    depends_on:
+      - python
+
+networks:
+  django_net:
+    driver: bridge
+
+volumes:
+  octave.db.volume:
+    name: octave.db.volume

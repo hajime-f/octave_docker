@@ -1,0 +1,11 @@
+Django==3.1.4
+uwsgi==2.0.18
+mysqlclient==1.4.6
+djangorestframework==3.12.2
+djangorestframework-simplejwt==4.6.0
+django-allauth==0.44.0
+dj-rest-auth==2.1.2
+pillow==8.0.1
+django-environ==0.4.5
+coreapi==2.3.3
+pyyaml==5.3.1
