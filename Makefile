@@ -25,6 +25,8 @@ all_clear:
 	docker-compose -f docker-compose.dev.yml down
 	docker volume rm octave.db.volume
 commit:
+	@echo "Running git on octave_docker"
 	git add -A .
 	git commit -m $(COMMENT)
-	git push origin main
+	git push origin master
+	cd "$(PWD)/src" && make commit $(COMMENT)
