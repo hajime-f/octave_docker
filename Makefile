@@ -24,6 +24,8 @@ migrate:
 all_clear:
 	docker-compose -f docker-compose.dev.yml down
 	docker volume rm octave.db.volume
+	find /vagrant_data/private -path "*/migrations/*.py" -not -name "__init__.py" -delete
+	find /vagrant_data/private -path "*/migrations/*.pyc" -delete
 commit:
 	@echo "Running git on octave_docker"
 	git add -A .
