@@ -13,6 +13,7 @@ services:
     volumes:
       - ./src:/code
       - ./static:/static
+      - ./template:/template
     expose:
       - "8001"
     depends_on:
@@ -64,6 +65,7 @@ services:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./static:/static
+      - ./src/frontend:/frontend
     depends_on:
       - python
 
