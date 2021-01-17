@@ -1,6 +1,6 @@
 # Introduction
 
-This GitHub page introduces an approach to build an environment of Django + Vie.js.
+This GitHub page introduces an approach to build an environment of Django + Vue.js.
 
 This page consists of two parts:
 1. The former part is to build a development environment.
@@ -8,7 +8,7 @@ This page consists of two parts:
 
 I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the explanation below.
 
-Repository : https://github.com/hajime-f/octave_docker
+Repository : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
 
 The versions of operating environments and packages are shown below:
 
