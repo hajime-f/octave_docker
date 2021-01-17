@@ -8,9 +8,9 @@ The page consists of two parts:
 
 ## Repositories
 
-Docker : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
-Backend : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
-Frontend : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
+- Docker : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
+- Backend : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
+- Frontend : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
 
 ## Versions
 
