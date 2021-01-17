@@ -1,37 +1,64 @@
-## Welcome to GitHub Pages
+# Introduction
 
-You can use the [editor on GitHub](https://github.com/hajime-f/octave_docker/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+This GitHub page introduces an approach to build an environment of Django + Vie.js.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This page consists of two parts:
+1. The former part is to build a development environment.
+2. The latter part is to deploy an implemented application on AWS Fargate.
 
-### Markdown
+I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the explanation below.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Repository : https://github.com/hajime-f/octave_docker
 
-```markdown
-Syntax highlighted code block
+The versions of operating environments and packages are shown below:
 
-# Header 1
-## Header 2
-### Header 3
+- Operating environments
+  - macOS Big Sur ver.11.1
+  - VirtualBox 6.1.16
+  - Ubuntu Server 20.04 LTS
+- Packages
+  - Docker 20.10.2
+  - docker-compose 1.24.1
+  - Django 3.1.4
+  - Vue CLI 4.5.10
+  - nginx 1.17
+  - MySQL 5.7
 
-- Bulleted
-- List
+# Development environment
 
-1. Numbered
-2. List
+## Directory
 
-**Bold** and _Italic_ and `Code` text
+The directory structure is shown below:
 
-[Link](url) and ![Image](src)
+```
+octave
+├── docker-compose.dev.yml
+├── docker-compose.prod.yml
+├── Makefile
+├── mysql
+│   ├── Dockerfile
+│   └── init.d
+│       └── init.sql
+├── nginx
+│   ├── conf
+│   │   └── app_nginx.conf
+│   └── uwsgi_params
+├── vue
+│   └── Dockerfile
+└── python
+    ├── Dockerfile
+    └── requirements.txt
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Nine files have to be edited:
+1. docker-compose.dev.yml
+2. Dockerfile (python)
+3. requirements.txt
+4. Dockerfile (mysql)
+5. init.sql
+6. Dockerfile (vue)
+7. app-nginx.conf
+8. uwsgi_params
+9. Makefile
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/hajime-f/octave_docker/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Although docker-compose.prod.yml exists in the directory, we do not have to edit it this part (see the next part).
