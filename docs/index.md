@@ -1,14 +1,18 @@
 # Introduction
 
-This GitHub page introduces an approach to build an environment of Django + Vue.js.
+This GitHub page introduces an approach to build an environment for Django + Vue.js.
 
-This page consists of two parts:
-1. The former part is to build a development environment.
-2. The latter part is to deploy an implemented application on AWS Fargate.
+The page consists of two parts:
+1. The former part describes how to build a development environment.
+2. The latter part describes how to deploy an implemented application on AWS Fargate.
 
-I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the explanation below.
+## Repositories
 
-Repository : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
+Docker : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
+Backend : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
+Frontend : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
+
+## Versions
 
 The versions of operating environments and packages are shown below:
 
@@ -23,6 +27,11 @@ The versions of operating environments and packages are shown below:
   - Vue CLI 4.5.10
   - nginx 1.17
   - MySQL 5.7
+
+## Notes
+
+1. I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the explanation below.
+2. I am not responsible for any disadvantage caused by referring to this page.
 
 # Development environment
 
