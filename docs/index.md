@@ -1,5 +1,7 @@
 # Introduction
 
+## Overview
+
 This GitHub page introduces an approach to build an environment for Django + Vue.js.
 
 The page consists of two parts:
@@ -8,18 +10,18 @@ The page consists of two parts:
 
 ## Repositories
 
-- Docker : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
-- Backend : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
-- Frontend : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
+- Infra (Docker) : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
+- Backend (Django) : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
+- Frontend (Vue) : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
 
 ## Versions
 
 The versions of operating environments and packages are shown below:
 
 - Operating environments
-  - macOS Big Sur ver.11.1
+  - macOS Big Sur 11.1 (Host)
   - VirtualBox 6.1.16
-  - Ubuntu Server 20.04 LTS
+  - Ubuntu Server 20.04 LTS (Guest)
 - Packages
   - Docker 20.10.2
   - docker-compose 1.24.1
