@@ -8,6 +8,10 @@ The page consists of two parts:
 1. The former part describes how to build a development environment.
 2. The latter part describes how to deploy an implemented application on AWS Fargate.
 
+The author of the page is [Hajime Fujita](https://www.linkedin.com/in/fujitahajime/). 
+
+I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the description below and note that I am not responsible for any disadvantage caused by referring to this page.
+
 ## Repositories
 
 - Infra (Docker) : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
@@ -29,11 +33,6 @@ The versions of operating environments and packages are shown below:
   - Vue CLI 4.5.10
   - nginx 1.17
   - MySQL 5.7
-
-## Notes
-
-1. I am making a web application called “octave”, which can manage activities of orchestras. Please replace it to your application name in the explanation below.
-2. I am not responsible for any disadvantage caused by referring to this page.
 
 # Development environment
 
@@ -72,4 +71,4 @@ Nine files have to be edited:
 8. uwsgi_params
 9. Makefile
 
-Although docker-compose.prod.yml exists in the directory, we do not have to edit it this part (see the next part).
+Although docker-compose.prod.yml exists in the directory, we do not have to edit it in the part (see the next part).
