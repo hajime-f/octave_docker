@@ -1,4 +1,4 @@
-# How to build an environment for Django + Vue.js with Docker
+# Introduction
 
 ## Overview
 
@@ -11,12 +11,6 @@ The page consists of two parts:
 The author of the page is [Hajime Fujita](https://www.linkedin.com/in/fujitahajime/). 
 
 I am making a web application called “octave”, which can manage activities of orchestras. Please replace "octave" to your application name in the description below and note that I am not responsible for any disadvantage caused by referring to this page.
-
-## Repositories
-
-- Infra (Docker) : [https://github.com/hajime-f/octave_docker](https://github.com/hajime-f/octave_docker)
-- Backend (Django) : [https://github.com/hajime-f/octave_backend](https://github.com/hajime-f/octave_backend)
-- Frontend (Vue) : [https://github.com/hajime-f/octave_frontend](https://github.com/hajime-f/octave_frontend)
 
 ## Versions
 
