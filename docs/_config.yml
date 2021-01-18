@@ -1,2 +1,5 @@
-title: How to build an environment for Django + Vue.js with Docker
 theme: jekyll-theme-cayman
+remote_theme: tuur29/pages-themes-cayman
+
+title: How to build an environment for Django + Vue.js with Docker
+description: 

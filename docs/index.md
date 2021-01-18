@@ -78,7 +78,7 @@ Ten files have to be edited:
 
 ### 1. docker-compose.dev.yml
 
-```
+```yaml:docker-compose.yml
 version: '3.7'
 
 services:
