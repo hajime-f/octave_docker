@@ -1,4 +1,4 @@
-# Introduction
+# How to build an environment for Django + Vue.js with Docker
 
 ## Overview
 
