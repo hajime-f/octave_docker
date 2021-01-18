@@ -41,7 +41,7 @@ The versions of operating environments and packages are shown below:
 
 The directory structure is shown below:
 
-```
+```bash
 octave
 ├── .env
 ├── docker-compose.dev.yml
@@ -161,7 +161,7 @@ volumes:
 
 ### 2. Dockerfile (python)
 
-```
+```:./python/Dockerfile
 FROM python:3.9
 WORKDIR /code
 ADD requirements.txt /code/
@@ -171,20 +171,141 @@ ADD . /code/
 
 ### 3. requirements.txt
 
+```:./python/requirements.txt
+Django==3.1.4
+uwsgi==2.0.18
+mysqlclient==1.4.6
+```
+
 ### 4. Dockerfile (mysql)
+
+```:./mysql/Dockerfile
+FROM mysql:5.7
+COPY init.d/* /docker-entrypoint-initdb.d/
+```
 
 ### 5. init.sql
 
+```mysql:./mysql/init.d/init.sql
+CREATE DATABASE IF NOT EXISTS octave_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER IF NOT EXISTS 'octave_user'@'%' IDENTIFIED BY 'octave';
+GRANT ALL PRIVILEGES ON octave_db.* TO 'octave_user'@'%';
+FLUSH PRIVILEGES;
+```
+
 ### 6. Dockerfile (vue)
 
-### 7. app-nginx.conf
+```:./vue/Dockerfile
+FROM node:15.5
+WORKDIR /code
+RUN npm install -g @vue/cli axios bootstrap-vue vuex vue-router && npm install -g @vue/cli-service-global
+ADD . /code/
+```
+
+### 7. app_nginx.conf
+
+```conf:./nginx/conf/app_nginx.conf
+upstream django {
+  ip_hash;
+  server python:8001;
+  server vue:3000;
+}
+
+server {
+  listen      80;
+  server_name 127.0.0.1;
+  charset     utf-8;
+
+  location /static {
+    alias /static;
+  }
+  
+  client_max_body_size 75M;
+
+  location / {
+    root /frontend/dist;
+  }
+  
+  location /apiv1/ {
+    uwsgi_pass  django;
+    include     /etc/nginx/uwsgi_params;
+  }
+
+  location /admin/ {
+    uwsgi_pass  django;
+    include     /etc/nginx/uwsgi_params;
+  }
+}
+
+server_tokens off;
+```
 
 ### 8. uwsgi_params
 
+```:./nginx/uwsgi_params
+uwsgi_param  QUERY_STRING       $query_string;
+uwsgi_param  REQUEST_METHOD     $request_method;
+uwsgi_param  CONTENT_TYPE       $content_type;
+uwsgi_param  CONTENT_LENGTH     $content_length;
+
+uwsgi_param  REQUEST_URI        $request_uri;
+uwsgi_param  PATH_INFO          $document_uri;
+uwsgi_param  DOCUMENT_ROOT      $document_root;
+uwsgi_param  SERVER_PROTOCOL    $server_protocol;
+uwsgi_param  REQUEST_SCHEME     $scheme;
+uwsgi_param  HTTPS              $https if_not_empty;
+
+uwsgi_param  REMOTE_ADDR        $remote_addr;
+uwsgi_param  REMOTE_PORT        $remote_port;
+uwsgi_param  SERVER_PORT        $server_port;
+uwsgi_param  SERVER_NAME        $server_name;
+```
+
 ### 9. Makefile
+
+```
+main:
+	docker tag octave_python:latest $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
+	docker push $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
+dev:
+	docker-compose -f docker-compose.dev.yml build
+prod:
+	docker-compose -f docker-compose.prod.yml build
+up:
+	docker-compose -f docker-compose.dev.yml up -d
+down:
+	docker-compose -f docker-compose.dev.yml down
+stop:
+	docker-compose -f docker-compose.dev.yml stop
+login:
+	aws ecr get-login-password --region ap-northeast-1 --profile fujita | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com
+clean:
+	docker-compose -f docker-compose.dev.yml rm
+	docker-compose -f docker-compose.prod.yml rm
+app:
+	docker-compose -f docker-compose.dev.yml run python ./manage.py startapp $(APP_NAME)
+migrate:
+	docker-compose -f docker-compose.dev.yml run python ./manage.py makemigrations
+	docker-compose -f docker-compose.dev.yml run python ./manage.py migrate
+all_clear:
+	docker-compose -f docker-compose.dev.yml down
+	docker volume rm octave.db.volume
+	find /vagrant_data/private -path "*/migrations/*.py" -not -name "__init__.py" -delete
+	find /vagrant_data/private -path "*/migrations/*.pyc" -delete
+commit:
+	@echo "Running git on octave_docker"
+	git add -A .
+	git commit -m $(COMMENT)
+	git push origin master
+	cd "$(PWD)/src" && make commit $(COMMENT)
+```
 
 ### 10. .env
 
+```
+AWS_ACCOUNT_ID=***********
+OCTAVE_DB_PASSWORD='******'
+```
 
 # How to deploy an implemented application on AWS Fargate
 
