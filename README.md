@@ -161,7 +161,7 @@ volumes:
 
 ### 2. Dockerfile (python)
 
-```:./python/Dockerfile
+```docker:./python/Dockerfile
 FROM python:3.9
 WORKDIR /code
 ADD requirements.txt /code/
@@ -179,7 +179,7 @@ mysqlclient==1.4.6
 
 ### 4. Dockerfile (mysql)
 
-```:./mysql/Dockerfile
+```docker:./mysql/Dockerfile
 FROM mysql:5.7
 COPY init.d/* /docker-entrypoint-initdb.d/
 ```
@@ -195,7 +195,7 @@ FLUSH PRIVILEGES;
 
 ### 6. Dockerfile (vue)
 
-```:./vue/Dockerfile
+```docker:./vue/Dockerfile
 FROM node:15.5
 WORKDIR /code
 RUN npm install -g @vue/cli axios bootstrap-vue vuex vue-router && npm install -g @vue/cli-service-global
@@ -263,7 +263,7 @@ uwsgi_param  SERVER_NAME        $server_name;
 
 ### 9. Makefile
 
-```
+```makefile:./Makefile
 main:
 	docker tag octave_python:latest $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
 	docker push $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
