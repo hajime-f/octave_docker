@@ -122,7 +122,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${OCTAVE_DB_PASSWORD:-default}
+      MYSQL_DATABASE: octave_db
+      MYSQL_USER: octave_user
+      MYSQL_PASSWORD: ${OCTAVE_DB_PASSWORD:-default}
+      MYSQL_ROOT_PASSWORD: ${OCTAVE_DB_ROOT_PASSWORD:-default}
       TZ: "Asia/Tokyo"
     volumes:
       - octave.db.volume:/var/lib/mysql
@@ -181,8 +184,6 @@ COPY init.d/* /docker-entrypoint-initdb.d/
 ### 5. init.sql
 
 ```mysql:./mysql/init.d/init.sql
-CREATE DATABASE IF NOT EXISTS octave_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER IF NOT EXISTS 'octave_user'@'%' IDENTIFIED BY 'octave';
 GRANT ALL PRIVILEGES ON octave_db.* TO 'octave_user'@'%';
 FLUSH PRIVILEGES;
 ```

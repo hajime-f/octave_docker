@@ -47,7 +47,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${OCTAVE_DB_PASSWORD:-default}
+      MYSQL_DATABASE: octave_db
+      MYSQL_USER: octave_user
+      MYSQL_PASSWORD: ${OCTAVE_DB_PASSWORD:-default}
+      MYSQL_ROOT_PASSWORD: ${OCTAVE_DB_ROOT_PASSWORD:-default}
       TZ: "Asia/Tokyo"
     volumes:
       - octave.db.volume:/var/lib/mysql
