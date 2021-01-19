@@ -8,8 +8,6 @@ The page consists of two parts:
 1. [The former part describes how to build a development environment](https://github.com/hajime-f/octave_docker#how-to-build-a-development-environment).
 2. The latter part describes how to deploy an implemented application on AWS Fargate.
 
-The author of the page is [Hajime Fujita](https://www.linkedin.com/in/fujitahajime/). 
-
 I am making a web application called “octave”, which can manage activities of orchestras. Please replace "octave" to your application name in the description below.
 
 ## Versions
@@ -23,7 +21,9 @@ The versions of operating environments and packages are shown below:
 - Packages
   - Docker 20.10.2
   - docker-compose 1.24.1
+  - Python 3.9
   - Django 3.1.4
+  - Node 15.5
   - Vue CLI 4.5.10
   - nginx 1.17
   - MySQL 5.7
@@ -284,8 +284,8 @@ migrate:
 all_clear:
 	docker-compose -f docker-compose.dev.yml down
 	docker volume rm octave.db.volume
-	find /vagrant_data/private -path "*/migrations/*.py" -not -name "__init__.py" -delete
-	find /vagrant_data/private -path "*/migrations/*.pyc" -delete
+	find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+	find . -path "*/migrations/*.pyc" -delete
 commit:
 	@echo "Running git on octave_docker"
 	git add -A .
