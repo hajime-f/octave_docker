@@ -2,17 +2,17 @@
 
 ## Overview
 
-This GitHub page introduces an approach to build an environment for Django + Vue.js.
+[This GitHub page](https://hajime-f.github.io/octave_docker/) introduces an approach to build an environment for Django + Vue.js.
 
 The page consists of two parts:
 1. [The former part describes how to build a development environment](https://github.com/hajime-f/octave_docker#how-to-build-a-development-environment).
 2. The latter part describes how to deploy an implemented application on AWS Fargate.
 
-I am making a web application called “octave”, which can manage activities of orchestras. Please replace "octave" to your application name in the description below.
+I am making a web application called “octave”, which can manage activities of orchestras. Please replace "octave" to your application name in the description.
 
 ## Versions
 
-The versions of operating environments and packages are shown below:
+The versions of operating environments and packages are listed below:
 
 - Operating environments
   - macOS Big Sur 11.1 (Host)
@@ -72,7 +72,9 @@ Ten files have to be edited:
 
 ### 1. docker-compose.dev.yml
 
-```yaml:docker-compose.yml
+First of all, we need a ```docker-compose.dev.yml``` file to activate four containers: Django (Python), Vue, MySQL and nginx.
+
+```yaml:./docker-compose.dev.yml
 version: '3.7'
 
 services:
@@ -158,6 +160,8 @@ volumes:
 
 ### 2. Dockerfile (python)
 
+The dockerfile enables the Python image to make a directory ```code``` and to add packages listed in ```requirements.txt```.
+
 ```docker:./python/Dockerfile
 FROM python:3.9
 WORKDIR /code
@@ -168,6 +172,8 @@ ADD . /code/
 
 ### 3. requirements.txt
 
+Django, uwsgi and mysqlclient are added to the image.
+
 ```:./python/requirements.txt
 Django==3.1.4
 uwsgi==2.0.18
@@ -175,6 +181,8 @@ mysqlclient==1.4.6
 ```
 
 ### 4. Dockerfile (mysql)
+
+The dockerfile copies the file ```init.sql``` to the MySQL image, which can initialize a database.
 
 ```docker:./mysql/Dockerfile
 FROM mysql:5.7
