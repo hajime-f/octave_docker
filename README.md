@@ -214,7 +214,11 @@ server {
   location /static {
     alias /static;
   }
-  
+
+  location /template {
+    alias /template;
+  }
+
   client_max_body_size 75M;
 
   location / {
@@ -227,6 +231,11 @@ server {
   }
 
   location /admin/ {
+    uwsgi_pass  django;
+    include     /etc/nginx/uwsgi_params;
+  }
+  
+  location /docs/ {
     uwsgi_pass  django;
     include     /etc/nginx/uwsgi_params;
   }
