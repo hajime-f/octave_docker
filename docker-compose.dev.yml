@@ -14,6 +14,7 @@ services:
       - ./src:/code
       - ./static:/static
       - ./template:/template
+      - ./log/uwsgi:/tmp
     expose:
       - "8001"
     depends_on:
@@ -31,7 +32,7 @@ services:
       - ./src/frontend:/code
       - ./static:/static
       - ./template:/template
-      - ./log:/root
+      - ./log/vue:/root
     expose:
       - "3000"
     depends_on:
@@ -68,6 +69,7 @@ services:
     volumes:
       - ./nginx/conf:/etc/nginx/conf.d
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./log/nginx:/var/log/nginx
       - ./static:/static
       - ./src/frontend:/frontend
     depends_on:

@@ -1,0 +1,72 @@
+# npm resolution error report
+
+2021-01-21T14:27:21.205Z
+
+While resolving: code@0.1.0
+Found: vue@3.0.5
+node_modules/vue
+  vue@"^3.0.0" from the root project
+
+Could not resolve dependency:
+peer vue@"^2.0.0" from vuex@3.6.0
+node_modules/vuex
+  vuex@"*" from the root project
+
+Fix the upstream dependency conflict, or retry
+this command with --force, or --legacy-peer-deps
+to accept an incorrect (and potentially broken) dependency resolution.
+
+Raw JSON explanation object:
+
+{
+  "code": "ERESOLVE",
+  "current": {
+    "name": "vue",
+    "version": "3.0.5",
+    "whileInstalling": {
+      "name": "code",
+      "version": "0.1.0",
+      "path": "/code"
+    },
+    "location": "node_modules/vue",
+    "dependents": [
+      {
+        "type": "prod",
+        "name": "vue",
+        "spec": "^3.0.0",
+        "from": {
+          "location": "/code"
+        }
+      }
+    ]
+  },
+  "edge": {
+    "type": "peer",
+    "name": "vue",
+    "spec": "^2.0.0",
+    "error": "INVALID",
+    "from": {
+      "name": "vuex",
+      "version": "3.6.0",
+      "whileInstalling": {
+        "name": "code",
+        "version": "0.1.0",
+        "path": "/code"
+      },
+      "location": "node_modules/vuex",
+      "dependents": [
+        {
+          "type": "prod",
+          "name": "vuex",
+          "spec": "*",
+          "from": {
+            "location": "/code"
+          }
+        }
+      ]
+    }
+  },
+  "peerConflict": null,
+  "strictPeerDeps": false,
+  "force": false
+}
