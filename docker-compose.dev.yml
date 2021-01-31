@@ -34,7 +34,7 @@ services:
       - ./template:/template
       - ./log/vue:/root
     expose:
-      - "3000"
+      - "8080"
     depends_on:
       - python
   
