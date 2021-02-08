@@ -35,7 +35,6 @@ services:
       - ./log/vue:/root
     expose:
       - "8080"
-    command: "npm run serve"
     depends_on:
       - python
   
