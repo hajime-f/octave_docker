@@ -11,6 +11,10 @@ down:
 	docker-compose -f docker-compose.dev.yml down
 stop:
 	docker-compose -f docker-compose.dev.yml stop
+vue:
+	docker-compose -f docker-compose.dev.yml run vue npm run build
+serve:
+	docker-compose -f docker-compose.dev.yml run vue npm run serve
 login:
 	aws ecr get-login-password --region ap-northeast-1 --profile fujita | docker login --username AWS --password-stdin $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com
 clean:
