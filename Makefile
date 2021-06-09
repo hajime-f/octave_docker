@@ -2,9 +2,20 @@ main:
 	docker tag octave_python:latest $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
 	docker push $(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-1.amazonaws.com/octave_python:latest
 dev:
+	@echo "Starting to build the Django and Vue modules..."
 	docker-compose -f docker-compose.dev.yml build
+	docker-compose -f docker-compose.dev.yml run vue npm run build
 prod:
 	docker-compose -f docker-compose.prod.yml build
+setup:
+	docker-compose -f docker-compose.dev.yml up -d
+	docker-compose -f docker-compose.dev.yml run python ./manage.py makemigrations
+	docker-compose -f docker-compose.dev.yml run python ./manage.py migrate
+	docker-compose -f docker-compose.dev.yml run python ./manage.py createsuperuser
+	docker-compose -f docker-compose.dev.yml run python ./manage.py collectstatic
+	docker-compose -f docker-compose.dev.yml run vue npm run build
+	@echo "Setup of development environment has done!"
+	@echo "Access to http://127.0.0.1:8081/"
 up:
 	docker-compose -f docker-compose.dev.yml up -d
 down:
